@@ -1,0 +1,47 @@
+<div class="container-fluid bck">
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+  <div class="card" id="c" style="background-color: rgba(255,255,255,0.4);margin-top: 10px;">
+    <div class="card-header  text-center text-warning" style="background-color:rgba(255,255,255,0.2);">
+      <h2 style="display: inline;">Weather App</h2>
+      <button class="btn  btn-outline-success btn-sm" style="margin-bottom: 6px;margin-top:2px;float: right;" (click)="change_mode()">{{mode}}</button>
+    </div>
+    <div class="card-body">
+      <p *ngIf="!weather">Searching...<span class="spinner-border spinner-border-sm text-primary"></span></p>
+      <div *ngIf="weather" class="card-text">
+          <li class="list-group-item" style="background-color:rgba(255,255,255,0.7);margin-bottom: 10px;">
+            <p class="text-center"><b>Today's forecast</b></p>
+            <img [ngClass]="{'dark':'mode==Dark mode'}" [src]="weather_arr[0].iconLink" style="float: right;">
+            <p><b>Day:&nbsp;</b><span class="badge badge-warning">{{weather_arr[0].weekday}}</span></p>
+            <p><b>Temperature:&nbsp;</b><span class="badge badge-danger">{{weather_arr[0].highTemperature}}&#8451; / {{weather_arr[0].lowTemperature}}&#8451;</span></p>
+            <p><b>Humidity:&nbsp;</b><span class="badge badge-success">{{weather_arr[0].humidity}}</span></p>
+            <p><b>Weather:&nbsp;</b><span class="badge badge-primary">{{weather_arr[0].description}}</span></p>            
+          </li>
+          <button class="btn btn-outline-dark btn-sm col-6 offset-3" (click)="gen1()">Next 6-day forecast</button>
+      <div *ngIf="seven_day">
+      <p style="color: indigo;margin-top: 10px;"><b>Next 6-day weather forecast is:</b></p>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let obj of weather_arr;let i = index" style="background-color:rgba(255,255,255,0.7);">
+          <div *ngIf="i>0">
+          <img [ngClass]="{'dark':'mode==Dark mode'}" [src]="obj.iconLink" style="float: right;">
+          <p><b>Day:&nbsp;</b><span class="badge badge-warning">{{obj.weekday}}</span></p>
+          <p><b>Temperature:&nbsp;</b><span class="badge badge-danger">{{obj.highTemperature}}&#8451; / {{obj.lowTemperature}}&#8451;</span></p>
+          <button class="btn btn-outline-primary btn-sm" (click)="gen(i)">Show more</button>
+          <div *ngIf="display[i]" style="margin-top: 5px;">
+          <p><b>Date:&nbsp;</b><span class="badge badge-dark">{{obj.utcTime |date:'MMMdd,yyyy'}}</span></p>
+          <p><b>Humidity:&nbsp;</b><span class="badge badge-success">{{obj.humidity}}</span></p>
+          <p><b>Weather:&nbsp;</b><span class="badge badge-primary">{{obj.description}}</span></p>
+          </div>
+        </div>
+        </li> 
+      </ul>
+    </div>
+    </div>
+  </div>
+  <div class="card-footer" *ngIf="weather" style="background-color:rgba(0,0,0,0.7);color: seashell;">
+    <p class="text-center">Weather report for:</p>
+    <div class="text-center"><p>City: <b>{{weather.city}}</b>,&nbsp;State: <b>{{weather.state}}</b>,&nbsp;Country: <b>{{weather.country}}</b></p></div> 
+  </div>
+</div>
+</div>
+</div>
